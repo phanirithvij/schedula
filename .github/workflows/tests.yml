@@ -39,7 +39,9 @@ jobs:
       - name: Uninstall unwanted libs
         run: pip uninstall flask-security
       - name: Install Test Dependencies
-        run: pip install -r requirements/test.pip
+        run: |
+          pip install -r requirements/test.pip
+          pip install -r requirements/all.pip
       - if: matrix.extra == 'base'
         name: Install Dependencies
         run: pip install -e .

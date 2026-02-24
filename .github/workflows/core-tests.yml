@@ -26,8 +26,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install Test Dependencies
-        run: pip install -r requirements/test.pip
+        run: |
+          pip install -r requirements/test.pip
+          pip install -r requirements/all.pip
       - name: Build/Install wheel
-        run: export ENABLE_SETUP_CORE="TRUE" && pip install wheel && python setup.py bdist_wheel && WHEEL=$(find dist/schedula_core*.whl) && pip install $WHEEL --no-dependencies --no-cache-dir
+        run: export ENABLE_SETUP_CORE="TRUE" && pip install wheel setuptools && python setup.py bdist_wheel && WHEEL=$(find dist/schedula_core*.whl) && pip install $WHEEL --no-dependencies --no-cache-dir
       - name: Run Test
         run: python -m unittest discover -s tests -p 'test_*.py'
